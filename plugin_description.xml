@@ -1,0 +1,9 @@
+<library path="lib/libvrmapping_ui">
+  <class name="vrmapping_ui/VRMapping Control"
+         type="vrmapping_ui::vrmapping_panel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget for control of vrmapping.
+    </description>
+  </class>
+</library>

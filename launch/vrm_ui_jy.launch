@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="rviz" type="rviz" name="vrmapping_ui" output="screen" args="-d $(find vrmapping_ui)/config/vrm_jy.rviz">
+  </node>
+</launch>
