@@ -37,6 +37,7 @@ namespace vrmapping_ui
   public Q_SLOTS:
 
     void on_global_planner_by_id_click();
+    void on_initialization_click();
 
   protected Q_SLOTS:
 
@@ -45,7 +46,10 @@ namespace vrmapping_ui
     QLineEdit *TargetPositionXLineEdit_;
     QLineEdit *TargetPositionYLineEdit_;
     QLineEdit *TargetPositionZLineEdit_;
-    ros::ServiceClient global_planner_by_id_client_;
+    ros::ServiceClient GlobalPlannerByPositionClient_;
+
+    QPushButton *PlannerInitializationButton_;
+    ros::ServiceClient InitializationClient_;
 
     ros::NodeHandle nh;
   };

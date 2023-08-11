@@ -6,9 +6,10 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /TF1
         - /TF1/Frames1
-        - /TF1/Frames1/base_link_planner1
-        - /MarkerArray4
+        - /MarkerArray3
+        - /MarkerArray3/Namespaces1
       Splitter Ratio: 0.5
     Tree Height: 617
   - Class: rviz/Selection
@@ -71,57 +72,45 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        FL_HIP:
+        LF_WHEEL_LINK:
           Value: false
-        FL_SHANK:
+        LH_WHEEL_LINK:
           Value: false
-        FL_THIGH:
+        RF_WHEEL_LINK:
           Value: false
-        FR_HIP:
+        RH_WHEEL_LINK:
           Value: false
-        FR_SHANK:
-          Value: false
-        FR_THIGH:
-          Value: false
-        HL_HIP:
-          Value: false
-        HL_SHANK:
-          Value: false
-        HL_THIGH:
-          Value: false
-        HR_HIP:
-          Value: false
-        HR_SHANK:
-          Value: false
-        HR_THIGH:
-          Value: false
-        Lidar:
+        base_footprint:
           Value: false
         base_link:
-          Value: false
-        base_link_planner:
           Value: true
-        base_link_sport:
+        base_stabilized:
           Value: false
-        body:
+        inertial_link:
           Value: false
-        camera_init:
+        lidar_front:
           Value: false
-        dummy:
+        navigation:
           Value: false
-        livox_frame:
+        odom:
           Value: false
-        livox_planner:
+        os1_imu:
           Value: false
-        map:
+        os1_lidar:
           Value: false
-        urdf_link:
+        rgb_cam_front:
+          Value: false
+        rgb_cam_left:
+          Value: false
+        rgb_cam_right:
+          Value: false
+        sensor_head_base_link:
+          Value: false
+        velodyne:
+          Value: false
+        velodyne_base_link:
           Value: false
         world:
-          Value: false
-        world2:
-          Value: false
-        world_planner:
           Value: true
       Marker Alpha: 1
       Marker Scale: 10
@@ -130,40 +119,38 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        map:
-          camera_init:
-            body:
-              base_link_planner:
-                livox_planner:
-                  {}
-          world_planner:
-            {}
         world:
-          base_link:
-            dummy:
-              urdf_link:
-                FL_HIP:
-                  FL_THIGH:
-                    FL_SHANK:
-                      {}
-                FR_HIP:
-                  FR_THIGH:
-                    FR_SHANK:
-                      {}
-                HL_HIP:
-                  HL_THIGH:
-                    HL_SHANK:
-                      {}
-                HR_HIP:
-                  HR_THIGH:
-                    HR_SHANK:
-                      {}
-                Lidar:
+          base_footprint:
+            base_stabilized:
+              base_link:
+                LF_WHEEL_LINK:
                   {}
-            livox_frame:
-              {}
-        world2:
-          base_link_sport:
+                LH_WHEEL_LINK:
+                  {}
+                RF_WHEEL_LINK:
+                  {}
+                RH_WHEEL_LINK:
+                  {}
+                inertial_link:
+                  {}
+                sensor_head_base_link:
+                  lidar_front:
+                    os1_imu:
+                      {}
+                    os1_lidar:
+                      {}
+                  rgb_cam_front:
+                    {}
+                  rgb_cam_left:
+                    {}
+                  rgb_cam_right:
+                    {}
+                  velodyne_base_link:
+                    velodyne:
+                      {}
+          navigation:
+            {}
+          odom:
             {}
       Update Interval: 0
       Value: true
@@ -250,14 +237,47 @@ Visualization Manager:
       Marker Topic: /vrmapping/Path
       Name: MarkerArray
       Namespaces:
-        {}
+        GlobalPathEdge: true
+        GlobalPathVertex: true
       Queue Size: 100
       Value: true
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /vrmapping/SamplerGlobalGraph
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/Marker
+      Enabled: false
+      Marker Topic: /vrmapping/SamplerGlobalGraphManagerEdge
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /vrmapping/GlobalPlannerGraph
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/Marker
+      Enabled: false
+      Marker Topic: /vrmapping/GlobalPlannerGraphEdge
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: world_planner
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:
@@ -281,7 +301,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 32.80326461791992
+      Distance: 11.86148452758789
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -289,17 +309,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 8.251667022705078
-        Y: -0.48044630885124207
-        Z: -4.759165287017822
+        X: 1.7793021202087402
+        Y: -0.4049833416938782
+        Z: -4.28957462310791
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.149796724319458
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
-      Yaw: 1.9916675090789795
+      Yaw: 3.1598033905029297
     Saved: ~
 Window Geometry:
   Displays:
