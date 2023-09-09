@@ -38,6 +38,8 @@ namespace vrmapping_ui
 
     void on_global_planner_by_id_click();
     void on_initialization_click();
+    void on_start_click();
+    void on_stop_click();
 
   protected Q_SLOTS:
 
@@ -50,6 +52,12 @@ namespace vrmapping_ui
 
     QPushButton *PlannerInitializationButton_;
     ros::ServiceClient InitializationClient_;
+
+    QPushButton *PlannerStartButton_;
+    ros::ServiceClient PlannerStartClient_;
+
+    QPushButton *PlannerStopButton_;
+    ros::ServiceClient PlannerStopClient_;
 
     ros::NodeHandle nh;
   };

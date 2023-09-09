@@ -12,6 +12,10 @@ namespace vrmapping_ui
     InitializationClient_ =
         nh.serviceClient<std_srvs::Trigger>("/VRMap/Initialization");
 
+    PlannerStartClient_ = nh.serviceClient<std_srvs::Trigger>("/VRMap/StartExploration");
+
+    PlannerStopClient_ = nh.serviceClient<std_srvs::Trigger>("/VRMap/StopExploration");
+
     QVBoxLayout *v_box_layout = new QVBoxLayout;
 
     PlannerByGlobalPositionButton_ = new QPushButton;
@@ -19,6 +23,12 @@ namespace vrmapping_ui
 
     PlannerInitializationButton_ = new QPushButton;
     PlannerInitializationButton_->setText("Initialization");
+
+    PlannerStartButton_ = new QPushButton;
+    PlannerStartButton_->setText("Start Exploration");
+
+    PlannerStopButton_ = new QPushButton;
+    PlannerStopButton_->setText("Stop Exploration");
 
     QVBoxLayout *global_vbox_layout = new QVBoxLayout;
     QHBoxLayout *global_hbox_layout = new QHBoxLayout;
@@ -30,14 +40,20 @@ namespace vrmapping_ui
     TargetPositionZLineEdit_ = new QLineEdit();
 
     global_hbox_layout->addWidget(text_label_ptr);
-
     global_hbox_layout->addWidget(TargetPositionXLineEdit_);
     global_hbox_layout->addWidget(TargetPositionYLineEdit_);
     global_hbox_layout->addWidget(TargetPositionZLineEdit_);
     global_hbox_layout->addWidget(PlannerByGlobalPositionButton_);
     global_vbox_layout->addLayout(global_hbox_layout);
+
     // global_vbox_layout->addWidget(PlannerByGlobalPositionButton_);
-    global_vbox_layout->addWidget(PlannerInitializationButton_);
+    QHBoxLayout *global_hbox_for_second_layout_ = new QHBoxLayout;
+    global_hbox_for_second_layout_->addWidget(PlannerInitializationButton_);
+    global_hbox_for_second_layout_->addWidget(PlannerStartButton_);
+    global_hbox_for_second_layout_->addWidget(PlannerStopButton_);
+    global_vbox_layout->addLayout(global_hbox_for_second_layout_);
+
+    // global_vbox_layout->addWidget(PlannerInitializationButton_);
     v_box_layout->addLayout(global_vbox_layout);
     // v_box_layout->addWidget(PlannerByGlobalPositionButton_);
 
@@ -47,6 +63,10 @@ namespace vrmapping_ui
             SLOT(on_global_planner_by_id_click()));
     connect(PlannerInitializationButton_, SIGNAL(clicked()), this,
             SLOT(on_initialization_click()));
+    connect(PlannerStartButton_, SIGNAL(clicked()), this,
+            SLOT(on_start_click()));
+    connect(PlannerStopButton_, SIGNAL(clicked()), this,
+            SLOT(on_stop_click()));
   }
 
   void vrmapping_panel::on_global_planner_by_id_click()
@@ -169,6 +189,36 @@ namespace vrmapping_ui
     {
       ROS_INFO("[VRMapping-UI_Info]: Service call succeed: %s",
                InitializationClient_.getService().c_str());
+    }
+  }
+
+  void vrmapping_panel::on_start_click()
+  {
+    std_srvs::Trigger srv;
+    if (!PlannerStartClient_.call(srv))
+    {
+      ROS_ERROR("[VRMapping-UI_Info]: Service call failed: %s",
+                PlannerStartClient_.getService().c_str());
+    }
+    else
+    {
+      ROS_INFO("[VRMapping-UI_Info]: Service call succeed: %s",
+               PlannerStartClient_.getService().c_str());
+    }
+  }
+
+  void vrmapping_panel::on_stop_click()
+  {
+    std_srvs::Trigger srv;
+    if (!PlannerStopClient_.call(srv))
+    {
+      ROS_ERROR("[VRMapping-UI_Info]: Service call failed: %s",
+                PlannerStopClient_.getService().c_str());
+    }
+    else
+    {
+      ROS_INFO("[VRMapping-UI_Info]: Service call succeed: %s",
+               PlannerStopClient_.getService().c_str());
     }
   }
 
