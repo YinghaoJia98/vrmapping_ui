@@ -16,6 +16,12 @@ namespace vrmapping_ui
 
     PlannerStopClient_ = nh.serviceClient<std_srvs::Trigger>("/VRMap/StopExploration");
 
+    ChangeUnitreeA1ControlStateClient_ = nh.serviceClient<std_srvs::Trigger>("/GazeboA1ROS/ControlA1StateChange");
+
+    UnitreeA1ChangeToNavigationModeClient_ = nh.serviceClient<std_srvs::Trigger>("/GazeboA1ROS/ChangeToNavigationMode");
+
+    UnitreeA1ChangeToJoyModeClient_ = nh.serviceClient<std_srvs::Trigger>("/GazeboA1ROS/ChangeToJoyMode");
+
     QVBoxLayout *v_box_layout = new QVBoxLayout;
 
     PlannerByGlobalPositionButton_ = new QPushButton;
@@ -29,6 +35,15 @@ namespace vrmapping_ui
 
     PlannerStopButton_ = new QPushButton;
     PlannerStopButton_->setText("Stop Exploration");
+
+    ChangeUnitreeA1ControlStateButton_ = new QPushButton;
+    ChangeUnitreeA1ControlStateButton_->setText("Change Unitree A1 Control State");
+
+    UnitreeA1ChangeToNavigationModeButton_ = new QPushButton;
+    UnitreeA1ChangeToNavigationModeButton_->setText("Unitree A1 Change To Navigation Mode");
+
+    UnitreeA1ChangeToJoyModeButton_ = new QPushButton;
+    UnitreeA1ChangeToJoyModeButton_->setText("Unitree A1 Change To Joy Mode");
 
     QVBoxLayout *global_vbox_layout = new QVBoxLayout;
     QHBoxLayout *global_hbox_layout = new QHBoxLayout;
@@ -52,6 +67,9 @@ namespace vrmapping_ui
     global_hbox_for_second_layout_->addWidget(PlannerStartButton_);
     global_hbox_for_second_layout_->addWidget(PlannerStopButton_);
     global_vbox_layout->addLayout(global_hbox_for_second_layout_);
+    global_vbox_layout->addWidget(ChangeUnitreeA1ControlStateButton_);
+    global_vbox_layout->addWidget(UnitreeA1ChangeToNavigationModeButton_);
+    global_vbox_layout->addWidget(UnitreeA1ChangeToJoyModeButton_);
 
     // global_vbox_layout->addWidget(PlannerInitializationButton_);
     v_box_layout->addLayout(global_vbox_layout);
@@ -61,12 +79,24 @@ namespace vrmapping_ui
 
     connect(PlannerByGlobalPositionButton_, SIGNAL(clicked()), this,
             SLOT(on_global_planner_by_id_click()));
+
     connect(PlannerInitializationButton_, SIGNAL(clicked()), this,
             SLOT(on_initialization_click()));
+
     connect(PlannerStartButton_, SIGNAL(clicked()), this,
             SLOT(on_start_click()));
+
     connect(PlannerStopButton_, SIGNAL(clicked()), this,
             SLOT(on_stop_click()));
+
+    connect(ChangeUnitreeA1ControlStateButton_, SIGNAL(clicked()), this,
+            SLOT(on_ChangeUnitreeA1ControlState_click()));
+
+    connect(UnitreeA1ChangeToNavigationModeButton_, SIGNAL(clicked()), this,
+            SLOT(on_UnitreeA1ChangeToNavigationMode_click()));
+
+    connect(UnitreeA1ChangeToJoyModeButton_, SIGNAL(clicked()), this,
+            SLOT(on_UnitreeA1ChangeToJoyMode_click()));
   }
 
   void vrmapping_panel::on_global_planner_by_id_click()
@@ -219,6 +249,51 @@ namespace vrmapping_ui
     {
       ROS_INFO("[VRMapping-UI_Info]: Service call succeed: %s",
                PlannerStopClient_.getService().c_str());
+    }
+  }
+
+  void vrmapping_panel::on_ChangeUnitreeA1ControlState_click()
+  {
+    std_srvs::Trigger srv;
+    if (!ChangeUnitreeA1ControlStateClient_.call(srv))
+    {
+      ROS_ERROR("[VRMapping-UI_Info]: Service call failed: %s",
+                ChangeUnitreeA1ControlStateClient_.getService().c_str());
+    }
+    else
+    {
+      ROS_INFO("[VRMapping-UI_Info]: Service call succeed: %s",
+               ChangeUnitreeA1ControlStateClient_.getService().c_str());
+    }
+  }
+
+  void vrmapping_panel::on_UnitreeA1ChangeToNavigationMode_click()
+  {
+    std_srvs::Trigger srv;
+    if (!UnitreeA1ChangeToNavigationModeClient_.call(srv))
+    {
+      ROS_ERROR("[VRMapping-UI_Info]: Service call failed: %s",
+                UnitreeA1ChangeToNavigationModeClient_.getService().c_str());
+    }
+    else
+    {
+      ROS_INFO("[VRMapping-UI_Info]: Service call succeed: %s",
+               UnitreeA1ChangeToNavigationModeClient_.getService().c_str());
+    }
+  }
+
+  void vrmapping_panel::on_UnitreeA1ChangeToJoyMode_click()
+  {
+    std_srvs::Trigger srv;
+    if (!UnitreeA1ChangeToJoyModeClient_.call(srv))
+    {
+      ROS_ERROR("[VRMapping-UI_Info]: Service call failed: %s",
+                UnitreeA1ChangeToJoyModeClient_.getService().c_str());
+    }
+    else
+    {
+      ROS_INFO("[VRMapping-UI_Info]: Service call succeed: %s",
+               UnitreeA1ChangeToJoyModeClient_.getService().c_str());
     }
   }
 

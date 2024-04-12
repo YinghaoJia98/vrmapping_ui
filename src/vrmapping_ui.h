@@ -40,6 +40,9 @@ namespace vrmapping_ui
     void on_initialization_click();
     void on_start_click();
     void on_stop_click();
+    void on_ChangeUnitreeA1ControlState_click();
+    void on_UnitreeA1ChangeToNavigationMode_click();
+    void on_UnitreeA1ChangeToJoyMode_click();
 
   protected Q_SLOTS:
 
@@ -58,6 +61,15 @@ namespace vrmapping_ui
 
     QPushButton *PlannerStopButton_;
     ros::ServiceClient PlannerStopClient_;
+
+    QPushButton *ChangeUnitreeA1ControlStateButton_;
+    ros::ServiceClient ChangeUnitreeA1ControlStateClient_;
+
+    QPushButton *UnitreeA1ChangeToNavigationModeButton_;
+    ros::ServiceClient UnitreeA1ChangeToNavigationModeClient_;
+
+    QPushButton *UnitreeA1ChangeToJoyModeButton_;
+    ros::ServiceClient UnitreeA1ChangeToJoyModeClient_;
 
     ros::NodeHandle nh;
   };
